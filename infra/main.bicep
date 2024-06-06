@@ -115,7 +115,7 @@ var embedding = {
 }
 
 param gpt4vModelName string = 'gpt-4'
-param gpt4vDeploymentName string = 'gpt-4'
+param gpt4vDeploymentName string = 'chat4'
 param gpt4vModelVersion string = 'turbo-2024-04-09'
 param gpt4vDeploymentCapacity int = 10
 
