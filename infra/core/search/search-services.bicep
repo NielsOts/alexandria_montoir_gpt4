@@ -33,16 +33,19 @@ param semanticSearch string = 'disabled'
 
 param sharedPrivateLinkStorageAccounts array = []
 
-var searchIdentityProvider = (sku.name == 'free') ? null : {
-  type: 'SystemAssigned'
-}
+// var searchIdentityProvider = (sku.name == 'free') ? null : {
+//   type: 'SystemAssigned'
+// }
 
 resource search 'Microsoft.Search/searchServices@2023-11-01' = {
   name: name
   location: location
   tags: tags
+  identity: {
+    type: 'SystemAssigned'
+  }
   // The free tier does not support managed identity
-  identity: searchIdentityProvider
+  // identity: searchIdentityProvider
   properties: {
     authOptions: disableLocalAuth ? null : authOptions
     disableLocalAuth: disableLocalAuth
@@ -70,4 +73,6 @@ resource search 'Microsoft.Search/searchServices@2023-11-01' = {
 output id string = search.id
 output endpoint string = 'https://${name}.search.windows.net/'
 output name string = search.name
-output principalId string = !empty(searchIdentityProvider) ? search.identity.principalId : ''
+output principalId string = ''
+
+// output principalId string = !empty(searchIdentityProvider) ? search.identity.principalId : ''

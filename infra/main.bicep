@@ -49,7 +49,7 @@ param azureOpenAiApiVersion string = ''
 param openAiServiceName string 
 // param openAiResourceGroupName string = ''
 
-param speechServiceResourceGroupName string = ''
+// param speechServiceResourceGroupName string = ''
 param speechServiceLocation string = ''
 param speechServiceName string = ''
 param speechServiceSkuName string // Set in main.parameters.json
@@ -75,7 +75,7 @@ param documentIntelligenceServiceName string // Set in main.parameters.json
 // Limited regions for new version:
 // https://learn.microsoft.com/azure/ai-services/document-intelligence/concept-layout
 @description('Location for the Document Intelligence resource group')
-@allowed([ 'eastus', 'westus2', 'westeurope' ])
+@allowed([ 'eastus', 'westus2', 'westeurope','francecentral' ])
 @metadata({
   azd: {
     type: 'location'
@@ -114,9 +114,9 @@ var embedding = {
   dimensions: embeddingDimensions != 0 ? embeddingDimensions : 1536
 }
 
-param gpt4vModelName string = 'gpt-4o'
-param gpt4vDeploymentName string = 'gpt-4o'
-param gpt4vModelVersion string = '2024-05-13'
+param gpt4vModelName string = 'gpt-4'
+param gpt4vDeploymentName string = 'gpt-4'
+param gpt4vModelVersion string = 'turbo-2024-04-09'
 param gpt4vDeploymentCapacity int = 10
 
 param tenantId string = tenant().tenantId
@@ -162,8 +162,8 @@ param vmSize string = 'Standard_DS1_v2'
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
 
-@description('Use Application Insights for monitoring and performance tracing')
-param useApplicationInsights bool = false
+// @description('Use Application Insights for monitoring and performance tracing')
+// param useApplicationInsights bool = false
 
 @description('Use speech recognition feature in browser')
 param useSpeechInputBrowser bool = false
@@ -464,7 +464,7 @@ module searchService 'core/search/search-services.bicep' = {
       name: searchServiceSkuName
     }
     semanticSearch: actualSearchServiceSemanticRankerLevel
-    publicNetworkAccess: publicNetworkAccess == 'Enabled' ? 'enabled' : (publicNetworkAccess == 'Disabled' ? 'disabled' : null)
+    // publicNetworkAccess: publicNetworkAccess == 'Enabled' ? 'enabled' : (publicNetworkAccess == 'Disabled' ? 'disabled' : null)
     sharedPrivateLinkStorageAccounts: usePrivateEndpoint ? [ storage.outputs.id ] : []
   }
 }
@@ -710,36 +710,36 @@ module isolation 'network-isolation.bicep' = {
   }
 }
 
-var environmentData = environment()
-var privateEndpointConnections = usePrivateEndpoint ? [
-  {
-    groupId: 'blob'
-    dnsZoneName: 'privatelink.blob.${environmentData.suffixes.storage}'
-    resourceIds: concat(
-      [ storage.outputs.id ],
-      useUserUpload ? [ userStorage.outputs.id ] : []
-    )
-  }
-  {
-    groupId: 'account'
-    dnsZoneName: 'privatelink.openai.azure.com'
-    resourceIds: concat(
-      [ openAi.outputs.id ],
-      useGPT4V ? [ computerVision.outputs.id ] : [],
-      !useLocalPdfParser ? [ documentIntelligence.outputs.id ] : []
-    )
-  }
-  {
-    groupId: 'searchService'
-    dnsZoneName: 'privatelink.search.windows.net'
-    resourceIds: [ searchService.outputs.id ]
-  }
-  {
-    groupId: 'sites'
-    dnsZoneName: 'privatelink.azurewebsites.net'
-    resourceIds: [ backend.outputs.id ]
-  }
-] : []
+// var environmentData = environment()
+// var privateEndpointConnections = usePrivateEndpoint ? [
+//   {
+//     groupId: 'blob'
+//     dnsZoneName: 'privatelink.blob.${environmentData.suffixes.storage}'
+//     resourceIds: concat(
+//       [ storage.outputs.id ],
+//       useUserUpload ? [ userStorage.outputs.id ] : []
+//     )
+//   }
+//   {
+//     groupId: 'account'
+//     dnsZoneName: 'privatelink.openai.azure.com'
+//     resourceIds: concat(
+//       [ openAi.outputs.id ],
+//       useGPT4V ? [ computerVision.outputs.id ] : [],
+//       !useLocalPdfParser ? [ documentIntelligence.outputs.id ] : []
+//     )
+//   }
+//   {
+//     groupId: 'searchService'
+//     dnsZoneName: 'privatelink.search.windows.net'
+//     resourceIds: [ searchService.outputs.id ]
+//   }
+//   {
+//     groupId: 'sites'
+//     dnsZoneName: 'privatelink.azurewebsites.net'
+//     resourceIds: [ backend.outputs.id ]
+//   }
+// ] : []
 
 // module privateEndpoints 'private-endpoints.bicep' = if (usePrivateEndpoint) {
 //   name: 'privateEndpoints'
