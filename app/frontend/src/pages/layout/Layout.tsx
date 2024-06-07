@@ -38,8 +38,8 @@ const Layout = () => {
                                         src={github}
                                         alt="Engie logo"
                                         aria-label="Link to Engie homepage"
-                                        width="20px"
-                                        height="20px"
+                                        width="60px"
+                                        height="30px"
                                         className={styles.githubLogo}
                                     />
                                 </a>
