@@ -1,6 +1,6 @@
 import { Outlet, NavLink, Link } from "react-router-dom";
 
-import github from "../../assets/github.svg";
+import github from "../../assets/Logo-engie (1).svg";
 
 import styles from "./Layout.module.css";
 
