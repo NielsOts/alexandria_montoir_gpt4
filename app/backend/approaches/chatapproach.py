@@ -10,12 +10,12 @@ from approaches.approach import Approach
 
 class ChatApproach(Approach, ABC):
     query_prompt_few_shots: list[ChatCompletionMessageParam] = [
-        {"role": USER, "content": "Alerte au niveau de la mesure de conductivité sortie pompe extraction La valeur de conductivité cationique sortie pompe d’extraction < FR-MON-EL1-11QU_32CQ001XZ10> a été lue à <0.40> µS avec une tendance à la hausse à <3:17PM le 21/03/24>"},
-        {"role": ASSISTANT, "content": "conductivité sortie pompe extraction 11QU_32CQ001XZ10 conductivité cationique en augmentation"},
-        {"role": USER, "content": "Alerte au niveau de la mesure de Na+ sortie pompe extraction < FR-MON-EL1-11QU_32CQ005XZ10 > a été lue à <6 ppb> avec une tendance à la hausse à <3:17PM le 21/03/24>. Cette valeur est considérée comme haute La mesure de Na+ vapeur saturée BP FR MON EL1 11QU_13CQ005XZ10> est lu au même instant à <4 ppb> avec une tendance à la hausse"},
-        {"role": ASSISTANT, "content": "l'augmentation des niveaux de sodium (Na+) dans la pompe d'extraction 11QU_32CQ005XZ10 Na+ vapeur saturée BP 11QU_13CQ005XZ10 en augmentation"},
-        {"role": USER, "content": "Alerte au niveau de la mesure de pH Ballon BP <FR-MON-EL1-11QU_10CQ006XZ10> a été lue à <9.8 ppb> avec une tendance à la baisse à <3:17PM le 21/03/24>. Cette valeur est considérée comme basse La mesure de pH ballon MP FR MON EL1 11QU_ 11 CQ00 6 XZ10 > est lu au même instant à < 9.39 > avec une tendance à la baisse"},
-        {"role": ASSISTANT, "content": "pH Ballon BP 11QU_10CQ006XZ10 pH ballon MP 11QU_11CQ006XZ10"},
+        {"role": "user", "content": "Alerte au niveau de la mesure de conductivité sortie pompe extraction La valeur de conductivité cationique sortie pompe d’extraction < FR-MON-EL1-11QU_32CQ001XZ10> a été lue à <0.40> µS avec une tendance à la hausse à <3:17PM le 21/03/24>"},
+        {"role": "assistant", "content": "conductivité sortie pompe extraction 11QU_32CQ001XZ10 conductivité cationique en augmentation"},
+        {"role": "user", "content": "Alerte au niveau de la mesure de Na+ sortie pompe extraction < FR-MON-EL1-11QU_32CQ005XZ10 > a été lue à <6 ppb> avec une tendance à la hausse à <3:17PM le 21/03/24>. Cette valeur est considérée comme haute La mesure de Na+ vapeur saturée BP FR MON EL1 11QU_13CQ005XZ10> est lu au même instant à <4 ppb> avec une tendance à la hausse"},
+        {"role": "assistant", "content": "l'augmentation des niveaux de sodium (Na+) dans la pompe d'extraction 11QU_32CQ005XZ10 Na+ vapeur saturée BP 11QU_13CQ005XZ10 en augmentation"},
+        {"role": "user", "content": "Alerte au niveau de la mesure de pH Ballon BP <FR-MON-EL1-11QU_10CQ006XZ10> a été lue à <9.8 ppb> avec une tendance à la baisse à <3:17PM le 21/03/24>. Cette valeur est considérée comme basse La mesure de pH ballon MP FR MON EL1 11QU_ 11 CQ00 6 XZ10 > est lu au même instant à < 9.39 > avec une tendance à la baisse"},
+        {"role": "assistant", "content": "pH Ballon BP 11QU_10CQ006XZ10 pH ballon MP 11QU_11CQ006XZ10"},
     
     ]
     NO_RESPONSE = "0"
