@@ -10,10 +10,13 @@ from approaches.approach import Approach
 
 class ChatApproach(Approach, ABC):
     query_prompt_few_shots: list[ChatCompletionMessageParam] = [
-        {"role": "user", "content": "How did crypto do last year?"},
-        {"role": "assistant", "content": "Summarize Cryptocurrency Market Dynamics from last year"},
-        {"role": "user", "content": "What are my health plans?"},
-        {"role": "assistant", "content": "Show available health plans"},
+        {"role": USER, "content": "Alerte au niveau de la mesure de conductivité sortie pompe extraction La valeur de conductivité cationique sortie pompe d’extraction < FR-MON-EL1-11QU_32CQ001XZ10> a été lue à <0.40> µS avec une tendance à la hausse à <3:17PM le 21/03/24>"},
+        {"role": ASSISTANT, "content": "conductivité sortie pompe extraction 11QU_32CQ001XZ10 conductivité cationique en augmentation"},
+        {"role": USER, "content": "Alerte au niveau de la mesure de Na+ sortie pompe extraction < FR-MON-EL1-11QU_32CQ005XZ10 > a été lue à <6 ppb> avec une tendance à la hausse à <3:17PM le 21/03/24>. Cette valeur est considérée comme haute La mesure de Na+ vapeur saturée BP FR MON EL1 11QU_13CQ005XZ10> est lu au même instant à <4 ppb> avec une tendance à la hausse"},
+        {"role": ASSISTANT, "content": "l'augmentation des niveaux de sodium (Na+) dans la pompe d'extraction 11QU_32CQ005XZ10 Na+ vapeur saturée BP 11QU_13CQ005XZ10 en augmentation"},
+        {"role": USER, "content": "Alerte au niveau de la mesure de pH Ballon BP <FR-MON-EL1-11QU_10CQ006XZ10> a été lue à <9.8 ppb> avec une tendance à la baisse à <3:17PM le 21/03/24>. Cette valeur est considérée comme basse La mesure de pH ballon MP FR MON EL1 11QU_ 11 CQ00 6 XZ10 > est lu au même instant à < 9.39 > avec une tendance à la baisse"},
+        {"role": ASSISTANT, "content": "pH Ballon BP 11QU_10CQ006XZ10 pH ballon MP 11QU_11CQ006XZ10"},
+    
     ]
     NO_RESPONSE = "0"
 
@@ -26,13 +29,18 @@ class ChatApproach(Approach, ABC):
     Make sure the last question ends with ">>".
     """
 
-    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in a knowledge base.
-    You have access to Azure AI Search index with 100's of documents.
-    Generate a search query based on the conversation and the new question.
-    Do not include cited source filenames and document names e.g info.txt or doc.pdf in the search query terms.
-    Do not include any text inside [] or <<>> in the search query terms.
-    Do not include any special characters like '+'.
-    If the question is not in English, translate the question to English before generating the search query.
+    query_prompt_template = """As an expert prompt engineer, you're tasked with transforming power plant alerts into search queries for a RAG system with a custom knowledge base. Here's how to do it:
+
+    1. Identify critical information in the alert, such as measurement types, values, trends, and context.
+    2. Identify specific equipment codes, especially those starting with "<FR-", to use in the search query. ALWAYS USE THESE CODES IN THE SEARCH QUERY!
+    3. Synthesize keywords that capture the essence of the alert for use in the search query.
+    4. Construct a clear and focused search query that is likely to return relevant documents. The query should specifically request information on handling the identified issue within the power plant context.
+    5. Ensure the search query is ALWAYS in the same language as the original alert for consistency with the knowledge base.
+    6. Validate the constructed search query to confirm its potential effectiveness before it is used to search the knowledge base.
+
+    Following this process will allow you to create optimal search queries that can retrieve the most pertinent documents from the knowledge base to assist with the interpretation and management of power plant alerts.
+
+    Only return the search query and nothing else.
     If you cannot generate a search query, return just the number 0.
     """
 
