@@ -321,8 +321,8 @@ const Chat = () => {
                                 primaryFill={"rgba(115, 118, 225, 1)"}
                                 aria-hidden="true"
                                 aria-label="Chat logo"
-                                width={"60"}
-                                height={"60"}
+                                width={"320"}
+                                height={"320"}
                             />
                             <h1 className={styles.chatEmptyStateTitle}>Chat with your data</h1>
                             <h2 className={styles.chatEmptyStateSubtitle}>Ask anything or try an example</h2>
