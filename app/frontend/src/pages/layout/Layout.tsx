@@ -23,11 +23,11 @@ const Layout = () => {
                                     Chat
                                 </NavLink>
                             </li>
-                            <li className={styles.headerNavLeftMargin}>
+                            {/* <li className={styles.headerNavLeftMargin}>
                                 <NavLink to="/qa" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
                                     Ask a question
                                 </NavLink>
-                            </li>
+                            </li> */}
                             <li className={styles.headerNavLeftMargin}>
                                 <a
                                     href="https://www.engie.be/nl/?gclid=Cj0KCQiAj_CrBhD-ARIsAIiMxT8cE5D3-Mbpb3pwzMYlInNEUdf5A4t4zZZWZ0PrbJqSH-77kQpB5TYaAsnkEALw_wcB&gclsrc=aw.ds"
