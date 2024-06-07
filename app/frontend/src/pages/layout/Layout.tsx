@@ -18,11 +18,11 @@ const Layout = () => {
                     </Link>
                     <nav>
                         <ul className={styles.headerNavList}>
-                            <li>
+                            {/* <li>
                                 <NavLink to="/" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
                                     Chat
                                 </NavLink>
-                            </li>
+                            </li> */}
                             {/* <li className={styles.headerNavLeftMargin}>
                                 <NavLink to="/qa" className={({ isActive }) => (isActive ? styles.headerNavPageLinkActive : styles.headerNavPageLink)}>
                                     Ask a question
@@ -38,8 +38,8 @@ const Layout = () => {
                                         src={github}
                                         alt="Engie logo"
                                         aria-label="Link to Engie homepage"
-                                        width="60px"
-                                        height="30px"
+                                        width="80px"
+                                        height="60px"
                                         className={styles.githubLogo}
                                     />
                                 </a>
