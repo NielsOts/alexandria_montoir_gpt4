@@ -11,6 +11,7 @@
 }
 
 .chatContainer {
+    font-family: monospace;
     flex: 1;
     display: flex;
     flex-direction: column;
